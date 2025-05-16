@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,23 +23,49 @@ namespace sslcheker
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
+
             if (textBoxHostname.Text.Length > 0)
             {
-                hostname = textBoxHostname.Text;
-                port = (int)numericUpDown1.Value;
-                Close();
+                if (checkBoxResolvDns.Checked)
+                {
+                    try
+                    {
+                        IPAddress address = IPAddress.Parse(textBoxHostname.Text);
+                        IPHostEntry host = Dns.GetHostEntry(address);
+                        hostname = host.HostName;
+                        port = (int)numericUpDown1.Value;
+                        Close();
+                    }
+                    catch
+                    {
+                        hostname = textBoxHostname.Text;
+                        port = (int)numericUpDown1.Value;
+                        Close();
+                    }
+                }
+                else
+                {
+                    hostname = textBoxHostname.Text;
+                    port = (int)numericUpDown1.Value;
+                    Close();
+                }
             }
             else 
             {
                 textBoxHostname.BackColor = Color.Red;
             }
-
-
         }
 
         private void textBoxHostname_Click(object sender, EventArgs e)
         {
             textBoxHostname.BackColor = Color.White;
         }
+
+        private void FormEdit_Load(object sender, EventArgs e)
+        {
+            textBoxHostname.Text = hostname;
+            numericUpDown1.Value = port;
+        }
+
     }
 }

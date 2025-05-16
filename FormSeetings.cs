@@ -27,7 +27,17 @@ namespace sslcheker
             numericUpDownMinutes.Value = PConfig.PERIODICALTIME;
             checkBoxPeriodicCheck.Checked = PConfig.PERIODICALCHECK==1?true:false;
             checkBoxEnableMail.Checked = PConfig.EMAILENABLE==1?true:false;
-
+            textBoxSmtpHost.Text = PConfig.SMTPHOST;
+            numericUpDownSmtpPort.Value = PConfig.SMTPPORT;
+            textBoxMailFrom.Text = PConfig.EMAILFROM;
+            textBoxMailTo.Text = PConfig.EMAILTO;
+            if (checkBoxEnableMail.Checked)
+            {
+                buttonTestEmail.Enabled = true;
+            }
+            else {
+                buttonTestEmail.Enabled = false;
+            }
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -42,7 +52,23 @@ namespace sslcheker
             PConfig.PERIODICALTIME = Int32.Parse(numericUpDownMinutes.Value.ToString()); 
             PConfig.PERIODICALCHECK = checkBoxPeriodicCheck.Checked ? 1 : 0;
             PConfig.EMAILENABLE = checkBoxEnableMail.Checked ? 1 : 0;
+            PConfig.SMTPHOST = textBoxSmtpHost.Text;
+            PConfig.SMTPPORT = Int32.Parse(numericUpDownSmtpPort.Value.ToString());
+            PConfig.EMAILFROM = textBoxMailFrom.Text;
+            PConfig.EMAILTO = textBoxMailTo.Text;
             Close();
+        }
+
+        private void checkBoxEnableMail_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (checkBoxPeriodicCheck.Checked)
+            {
+                buttonTestEmail.Enabled = true;
+            }
+            else
+            {
+                buttonTestEmail.Enabled = false;
+            }
         }
     }
 }

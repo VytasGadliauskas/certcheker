@@ -75,7 +75,7 @@ namespace sslcheker.Control
 
                 if (key.GetValueNames().Contains("EMAILENABLE"))
                 {
-                    PConfig.ERROR = Int32.Parse(key.GetValue("EMAILENABLE").ToString());
+                    PConfig.EMAILENABLE = Int32.Parse(key.GetValue("EMAILENABLE").ToString());
                 }
                 else
                 {

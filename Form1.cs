@@ -1,5 +1,6 @@
 ﻿using sslcheker;
 using sslcheker.Control;
+using sslcheker.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -87,14 +88,12 @@ namespace sslcheker
 
         private void buttonAbout_Click(object sender, EventArgs e)
         {
-            //FormAbout
             FormAbout formAbout = new FormAbout(); 
             formAbout.ShowDialog();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            // string 
             using (FormAdd formAdd = new FormAdd())
             {
                 formAdd.ShowDialog();
@@ -160,13 +159,13 @@ namespace sslcheker
                             row.Cells[4].Value = (cert.NotAfter - localDate).Days;
                             row.Cells[5].Value = cert.NotBefore;
                             row.Cells[6].Value = cert.NotAfter;
-
-                            if ((int)(cert.NotAfter - localDate).Days < 1)
+                            row.DefaultCellStyle.BackColor = Color.White;
+                            if ((int)(cert.NotAfter - localDate).Days < PConfig.ERROR)
                             {
                                 row.DefaultCellStyle.BackColor = Color.Red;
                                 row.Cells[0].Value = "ALERT";
                             }
-                            else if ((int)(cert.NotAfter - localDate).Days < 10)
+                            else if ((int)(cert.NotAfter - localDate).Days < PConfig.WARNING)
                             {
                                 row.DefaultCellStyle.BackColor = Color.Yellow;
                                 row.Cells[0].Value = "WARNING";
@@ -176,6 +175,7 @@ namespace sslcheker
                     catch (Exception ex)
                     {
                         row.Cells[0].Value = ex.Message;
+                        row.DefaultCellStyle.BackColor = Color.LightGray;
                     }
 
                     row.Cells[7].Value = localDate.ToString();
@@ -221,11 +221,12 @@ namespace sslcheker
                     row.Cells[4].Value = (cert.NotAfter - localDate).Days;
                     row.Cells[5].Value = cert.NotBefore;
                     row.Cells[6].Value = cert.NotAfter;
-                    if ((int)(cert.NotAfter - localDate).Days < 1)
+                    row.DefaultCellStyle.BackColor = Color.White;
+                    if ((int)(cert.NotAfter - localDate).Days < PConfig.ERROR)
                     {
                         row.DefaultCellStyle.BackColor = Color.Red;
                         row.Cells[0].Value = "ALERT";
-                    } else if ((int)(cert.NotAfter - localDate).Days < 10)
+                    } else if ((int)(cert.NotAfter - localDate).Days < PConfig.WARNING)
                     {
                         row.DefaultCellStyle.BackColor = Color.Yellow;
                         row.Cells[0].Value = "WARNING";
@@ -235,17 +236,20 @@ namespace sslcheker
             catch (Exception ex)
             {
                 row.Cells[0].Value = ex.Message;
+                row.DefaultCellStyle.BackColor = Color.LightGray;
             }
             row.Cells[7].Value = localDate.ToString();
         }
 
         private void editToolStripMenuItemEdit_Click(object sender, EventArgs e)
         {
-            using (FormEdit formEdit = new FormEdit()) { 
+            using (FormEdit formEdit = new FormEdit()) {
+                DataGridViewRow row = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex];
+                formEdit.hostname = row.Cells[1].Value.ToString();
+                formEdit.port = Int32.Parse(row.Cells[2].Value.ToString());
                 formEdit.ShowDialog();
                 if (formEdit.port != 0)
                 {
-                    DataGridViewRow row = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex];
                     row.Cells[1].Value = formEdit.hostname;
                     row.Cells[2].Value = formEdit.port;
                 }
@@ -318,6 +322,7 @@ namespace sslcheker
 
             }
         }
+
     }
     
 }

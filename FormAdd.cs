@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sslcheker.Operations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,7 +17,6 @@ namespace sslcheker
     {
         public string hostname { get; set; }
         public int port { get; set;} 
-        public bool resoveHostname { get; set; }
 
         public FormAdd()
         {
@@ -30,39 +30,35 @@ namespace sslcheker
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-
             if (textBoxHostname.Text.Length > 0)
             {
                 if (checkBoxResolve.Checked)
                 {
                     try
                     {
-                        IPAddress ip = null;
-                        if (IPAddress.TryParse(hostname, out ip))
-                        {
-                            IPHostEntry host = Dns.GetHostEntry(hostname.Trim());
-                            hostname = host.HostName;
-                        }
-                        else {
-                            textBoxHostname.BackColor = Color.Red;
-                        }
-
-                    }
-                    catch
+                        IPAddress address = IPAddress.Parse(textBoxHostname.Text);
+                        IPHostEntry host = Dns.GetHostEntry(address);
+                        hostname = host.HostName;
+                        port = (int)numericUpDownPort.Value;
+                        Close();
+                    } 
+                    catch 
                     {
-                        textBoxHostname.BackColor = Color.Red;
+                        hostname = textBoxHostname.Text;
+                        port = (int)numericUpDownPort.Value;
+                        Close();
                     }
                 }
-
-                hostname = textBoxHostname.Text;
-                port = (int)numericUpDownPort.Value;
-                resoveHostname = checkBoxResolve.Checked;
-                Close();
+                else 
+                { 
+                    hostname = textBoxHostname.Text;
+                    port = (int)numericUpDownPort.Value;
+                    Close();
+                }
             }
             else {
                 textBoxHostname.BackColor = Color.Red;
             }
-
         }
 
         private void textBoxHostname_Click(object sender, EventArgs e)

@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\PConfig.cs" />
+    <Compile Include="Operations\CustomOperations.cs" />
     <Compile Include="Operations\RegistryOperations.cs" />
     <Compile Include="Data\ClassHost.cs" />
     <Compile Include="Form1.cs">
