@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sslcheker.Operations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,25 +24,13 @@ namespace sslcheker
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-
             if (textBoxHostname.Text.Length > 0)
             {
                 if (checkBoxResolvDns.Checked)
                 {
-                    try
-                    {
-                        IPAddress address = IPAddress.Parse(textBoxHostname.Text);
-                        IPHostEntry host = Dns.GetHostEntry(address);
-                        hostname = host.HostName;
-                        port = (int)numericUpDown1.Value;
-                        Close();
-                    }
-                    catch
-                    {
-                        hostname = textBoxHostname.Text;
-                        port = (int)numericUpDown1.Value;
-                        Close();
-                    }
+                    hostname = ScanOperations.resolveIp(textBoxHostname.Text);
+                    port = (int)numericUpDown1.Value;
+                    Close();
                 }
                 else
                 {

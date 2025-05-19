@@ -34,20 +34,9 @@ namespace sslcheker
             {
                 if (checkBoxResolve.Checked)
                 {
-                    try
-                    {
-                        IPAddress address = IPAddress.Parse(textBoxHostname.Text);
-                        IPHostEntry host = Dns.GetHostEntry(address);
-                        hostname = host.HostName;
-                        port = (int)numericUpDownPort.Value;
-                        Close();
-                    } 
-                    catch 
-                    {
-                        hostname = textBoxHostname.Text;
-                        port = (int)numericUpDownPort.Value;
-                        Close();
-                    }
+                    hostname = ScanOperations.resolveIp(textBoxHostname.Text);
+                    port = (int)numericUpDownPort.Value;
+                    Close();
                 }
                 else 
                 { 

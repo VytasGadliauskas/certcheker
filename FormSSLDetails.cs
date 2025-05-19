@@ -44,20 +44,21 @@ namespace sslcheker
                     var serverCertificate = sslStream.RemoteCertificate;
                     cert = new X509Certificate2(serverCertificate);
 
-                    richTextBox1.AppendText("ISDUOTAS:\r");
-                    richTextBox1.AppendText("          CN " + cert.GetNameInfo(X509NameType.SimpleName, false)+"\r");
-                    richTextBox1.AppendText("          Url " + cert.GetNameInfo(X509NameType.UrlName, false) + "\r");
-                    richTextBox1.AppendText("          Email " + cert.GetNameInfo(X509NameType.EmailName, false) + "\r");
-                    richTextBox1.AppendText("          DNS " + cert.GetNameInfo(X509NameType.DnsName, false) + "\r\n");
+                    richTextBox1.AppendText("Issued To:\r\n");
+                    richTextBox1.AppendText("      CN : " + cert.GetNameInfo(X509NameType.SimpleName, false)+"\r");
+                    richTextBox1.AppendText("      Url : " + cert.GetNameInfo(X509NameType.UrlName, false) + "\r");
+                    richTextBox1.AppendText("      Email : " + cert.GetNameInfo(X509NameType.EmailName, false) + "\r");
+                    richTextBox1.AppendText("      DNS : " + cert.GetNameInfo(X509NameType.DnsName, false) + "\r\n");
 
-                    richTextBox1.AppendText("ISDAVE: \r");
-                    richTextBox1.AppendText("          CN " + cert.Issuer + "\r\n");
+                    richTextBox1.AppendText("Issued By: \r\n");
+                    richTextBox1.AppendText("      CN : " + cert.Issuer + "\r\n");
 
 
-                    richTextBox1.AppendText("GALIOJIMO LAIKAS:\r");
-                    richTextBox1.AppendText("          Isduota "+ cert.NotBefore+"\r");
-                    richTextBox1.AppendText("          Galioja iki " + cert.NotAfter + "\r");
-                    richTextBox1.AppendText("          Liko dienu " + (cert.NotAfter - localDate).Days + "\r");
+                    richTextBox1.AppendText("Valid period:\r\n");
+                    richTextBox1.AppendText("      Issued on : "+ cert.NotBefore+"\r");
+                    richTextBox1.AppendText("      Expires on : " + cert.NotAfter + "\r");
+                    richTextBox1.AppendText("      Days to expire : " + (cert.NotAfter - localDate).Days + "\r\n");
+
                 }
             }
             catch (Exception ex)

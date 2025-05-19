@@ -75,7 +75,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FormSSLDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormSSLDetails";
+            this.Text = "SSL Details";
             this.Load += new System.EventHandler(this.FormSSLDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

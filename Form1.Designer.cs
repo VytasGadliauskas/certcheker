@@ -47,6 +47,7 @@
             this.checkToolStripMenuItemCheck = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.editToolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.Hostname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,7 +64,6 @@
             this.saveFileDialogCsv = new System.Windows.Forms.SaveFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -190,6 +190,7 @@
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridView1.Size = new System.Drawing.Size(929, 431);
             this.dataGridView1.TabIndex = 6;
+            this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
             // 
             // Status
             // 
@@ -241,6 +242,11 @@
             this.editToolStripMenuItemEdit.Size = new System.Drawing.Size(158, 22);
             this.editToolStripMenuItemEdit.Text = "Edit";
             this.editToolStripMenuItemEdit.Click += new System.EventHandler(this.editToolStripMenuItemEdit_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(155, 6);
             // 
             // deleteToolStripMenuItemDelete
             // 
@@ -360,11 +366,6 @@
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.ToolTipText = "Status";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(155, 6);
             // 
             // Form1
             // 

@@ -34,16 +34,17 @@ namespace sslcheker
 
         private void AddRow(string hostname, int port)
         {
-           dataGridView1.Rows.Add("", hostname, port, "", "", "", "", "");
+            dataGridView1.Rows.Add("", hostname, port, "", "", "", "", "");
         }
 
         private void LoadRows()
         {
             string strExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             string strWorkPath = System.IO.Path.GetDirectoryName(strExeFilePath);
-            string fileName  = Path.Combine(strWorkPath, "hosts.db");
+            string fileName = Path.Combine(strWorkPath, "hosts.db");
 
-            if (File.Exists(fileName)) {
+            if (File.Exists(fileName))
+            {
                 using (StreamReader inputFile = new StreamReader(Path.Combine(strWorkPath, "hosts.db")))
                 {
                     while (!inputFile.EndOfStream)
@@ -74,8 +75,8 @@ namespace sslcheker
                                   "|" + row.Cells[4].Value.ToString() +
                                   "|" + row.Cells[5].Value.ToString() +
                                   "|" + row.Cells[6].Value.ToString() +
-                                  "|" + row.Cells[7].Value.ToString() ;
-  
+                                  "|" + row.Cells[7].Value.ToString();
+
                     outputFile.WriteLine(line);
                 }
                 outputFile.Close();
@@ -88,7 +89,7 @@ namespace sslcheker
 
         private void buttonAbout_Click(object sender, EventArgs e)
         {
-            FormAbout formAbout = new FormAbout(); 
+            FormAbout formAbout = new FormAbout();
             formAbout.ShowDialog();
         }
 
@@ -97,7 +98,8 @@ namespace sslcheker
             using (FormAdd formAdd = new FormAdd())
             {
                 formAdd.ShowDialog();
-                if (formAdd.port != 0) {
+                if (formAdd.port != 0)
+                {
                     AddRow(formAdd.hostname, formAdd.port);
                 }
             }
@@ -194,7 +196,7 @@ namespace sslcheker
         private void checkToolStripMenuItemCheck_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex];
-            string host =   row.Cells[1].Value.ToString();
+            string host = row.Cells[1].Value.ToString();
             int port = Int32.Parse(row.Cells[2].Value.ToString());
 
             DateTime localDate = DateTime.Now;
@@ -226,7 +228,8 @@ namespace sslcheker
                     {
                         row.DefaultCellStyle.BackColor = Color.Red;
                         row.Cells[0].Value = "ALERT";
-                    } else if ((int)(cert.NotAfter - localDate).Days < PConfig.WARNING)
+                    }
+                    else if ((int)(cert.NotAfter - localDate).Days < PConfig.WARNING)
                     {
                         row.DefaultCellStyle.BackColor = Color.Yellow;
                         row.Cells[0].Value = "WARNING";
@@ -243,7 +246,8 @@ namespace sslcheker
 
         private void editToolStripMenuItemEdit_Click(object sender, EventArgs e)
         {
-            using (FormEdit formEdit = new FormEdit()) {
+            using (FormEdit formEdit = new FormEdit())
+            {
                 DataGridViewRow row = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex];
                 formEdit.hostname = row.Cells[1].Value.ToString();
                 formEdit.port = Int32.Parse(row.Cells[2].Value.ToString());
@@ -258,7 +262,9 @@ namespace sslcheker
 
         private void buttonWebScrab_Click(object sender, EventArgs e)
         {
-            using (FormScann formScann = new FormScann()) {
+            using (FormScann formScann = new FormScann())
+            {
+                formScann.dataGridView = dataGridView1;
                 formScann.ShowDialog();
             }
         }
@@ -279,11 +285,11 @@ namespace sslcheker
 
         private void buttonSeetings_Click(object sender, EventArgs e)
         {
-            using (FormSeetings formSeetings = new FormSeetings()) 
+            using (FormSeetings formSeetings = new FormSeetings())
             {
-               formSeetings.ShowDialog();
-               
-            
+                formSeetings.ShowDialog();
+
+
             }
         }
 
@@ -291,7 +297,8 @@ namespace sslcheker
         {
             string filename = "";
 
-            using (SaveFileDialog saveFileDialogCsv = new SaveFileDialog()) {
+            using (SaveFileDialog saveFileDialogCsv = new SaveFileDialog())
+            {
                 saveFileDialogCsv.DefaultExt = ".csv";
                 saveFileDialogCsv.Title = "Save Csv Files";
                 saveFileDialogCsv.Filter = "Csv files (*.csv)|*.csv|All files (*.*)|*.*";
@@ -323,6 +330,18 @@ namespace sslcheker
             }
         }
 
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int rowSelected = e.RowIndex;
+                if (e.RowIndex != -1)
+                {
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[rowSelected].Selected = true;
+                }
+            }
+        }
     }
     
 }

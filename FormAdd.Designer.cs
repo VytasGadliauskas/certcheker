@@ -134,7 +134,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormAdd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormAdd";
+            this.Text = "Add Host";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
