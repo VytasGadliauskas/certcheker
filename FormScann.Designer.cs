@@ -107,7 +107,7 @@
             // buttonScann
             // 
             this.buttonScann.Image = global::sslcheker.Properties.Resources.icons8_web_scraper_48;
-            this.buttonScann.Location = new System.Drawing.Point(291, 37);
+            this.buttonScann.Location = new System.Drawing.Point(291, 21);
             this.buttonScann.Name = "buttonScann";
             this.buttonScann.Size = new System.Drawing.Size(75, 54);
             this.buttonScann.TabIndex = 6;
@@ -209,12 +209,17 @@
             // 
             // numericUpDownTimeout
             // 
-            this.numericUpDownTimeout.Location = new System.Drawing.Point(177, 95);
+            this.numericUpDownTimeout.Location = new System.Drawing.Point(207, 95);
+            this.numericUpDownTimeout.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.numericUpDownTimeout.Name = "numericUpDownTimeout";
             this.numericUpDownTimeout.Size = new System.Drawing.Size(53, 20);
             this.numericUpDownTimeout.TabIndex = 17;
             this.numericUpDownTimeout.Value = new decimal(new int[] {
-            10,
+            500,
             0,
             0,
             0});
@@ -222,11 +227,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(118, 97);
+            this.label4.Location = new System.Drawing.Point(134, 97);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 13);
+            this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 18;
-            this.label4.Text = "Timeout (s)";
+            this.label4.Text = "Timeout (ms)";
             // 
             // richTextBoxLog
             // 
@@ -236,6 +241,7 @@
             this.richTextBoxLog.Size = new System.Drawing.Size(273, 149);
             this.richTextBoxLog.TabIndex = 19;
             this.richTextBoxLog.Text = "";
+            this.richTextBoxLog.TextChanged += new System.EventHandler(this.richTextBoxLog_TextChanged);
             // 
             // FormScann
             // 

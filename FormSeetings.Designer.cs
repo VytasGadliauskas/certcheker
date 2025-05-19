@@ -48,6 +48,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxSmtpHost = new System.Windows.Forms.TextBox();
             this.checkBoxEnableMail = new System.Windows.Forms.CheckBox();
+            this.checkBoxAutentificate = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.checkBoxEnableSSL = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWarningDays)).BeginInit();
@@ -58,8 +64,9 @@
             // 
             // buttonOK
             // 
+            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Image = global::sslcheker.Properties.Resources.icons8_verified_account_48;
-            this.buttonOK.Location = new System.Drawing.Point(424, 203);
+            this.buttonOK.Location = new System.Drawing.Point(427, 280);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 55);
             this.buttonOK.TabIndex = 0;
@@ -70,7 +77,7 @@
             // 
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.Image = global::sslcheker.Properties.Resources.icons8_unavailable_48;
-            this.buttonClose.Location = new System.Drawing.Point(521, 203);
+            this.buttonClose.Location = new System.Drawing.Point(521, 280);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 55);
             this.buttonClose.TabIndex = 1;
@@ -163,6 +170,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBoxEnableSSL);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.textBoxPassword);
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.checkBoxAutentificate);
             this.groupBox2.Controls.Add(this.buttonTestEmail);
             this.groupBox2.Controls.Add(this.numericUpDownSmtpPort);
             this.groupBox2.Controls.Add(this.textBoxMailTo);
@@ -174,7 +187,7 @@
             this.groupBox2.Controls.Add(this.checkBoxEnableMail);
             this.groupBox2.Location = new System.Drawing.Point(286, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(310, 172);
+            this.groupBox2.Size = new System.Drawing.Size(310, 254);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Email ";
@@ -208,14 +221,14 @@
             // 
             // textBoxMailTo
             // 
-            this.textBoxMailTo.Location = new System.Drawing.Point(85, 128);
+            this.textBoxMailTo.Location = new System.Drawing.Point(85, 214);
             this.textBoxMailTo.Name = "textBoxMailTo";
             this.textBoxMailTo.Size = new System.Drawing.Size(207, 20);
             this.textBoxMailTo.TabIndex = 15;
             // 
             // textBoxMailFrom
             // 
-            this.textBoxMailFrom.Location = new System.Drawing.Point(85, 92);
+            this.textBoxMailFrom.Location = new System.Drawing.Point(85, 172);
             this.textBoxMailFrom.Name = "textBoxMailFrom";
             this.textBoxMailFrom.Size = new System.Drawing.Size(207, 20);
             this.textBoxMailFrom.TabIndex = 14;
@@ -223,7 +236,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(16, 131);
+            this.label6.Location = new System.Drawing.Point(16, 217);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 13;
@@ -232,7 +245,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 99);
+            this.label5.Location = new System.Drawing.Point(16, 175);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 12;
@@ -265,13 +278,66 @@
             this.checkBoxEnableMail.UseVisualStyleBackColor = true;
             this.checkBoxEnableMail.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxEnableMail_MouseClick);
             // 
+            // checkBoxAutentificate
+            // 
+            this.checkBoxAutentificate.AutoSize = true;
+            this.checkBoxAutentificate.Location = new System.Drawing.Point(19, 97);
+            this.checkBoxAutentificate.Name = "checkBoxAutentificate";
+            this.checkBoxAutentificate.Size = new System.Drawing.Size(85, 17);
+            this.checkBoxAutentificate.TabIndex = 17;
+            this.checkBoxAutentificate.Text = "Autentificate";
+            this.checkBoxAutentificate.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(145, 94);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(147, 20);
+            this.textBox1.TabIndex = 18;
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Location = new System.Drawing.Point(170, 129);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
+            this.textBoxPassword.Size = new System.Drawing.Size(122, 20);
+            this.textBoxPassword.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(110, 97);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "User";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(110, 132);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 13);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Password";
+            // 
+            // checkBoxEnableSSL
+            // 
+            this.checkBoxEnableSSL.AutoSize = true;
+            this.checkBoxEnableSSL.Location = new System.Drawing.Point(19, 130);
+            this.checkBoxEnableSSL.Name = "checkBoxEnableSSL";
+            this.checkBoxEnableSSL.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxEnableSSL.TabIndex = 22;
+            this.checkBoxEnableSSL.Text = "Enable SSL";
+            this.checkBoxEnableSSL.UseVisualStyleBackColor = true;
+            // 
             // FormSeetings
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonClose;
-            this.ClientSize = new System.Drawing.Size(621, 278);
+            this.ClientSize = new System.Drawing.Size(621, 347);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -316,5 +382,11 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxSmtpHost;
         private System.Windows.Forms.Button buttonTestEmail;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox checkBoxAutentificate;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBoxEnableSSL;
     }
 }

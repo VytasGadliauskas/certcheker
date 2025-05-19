@@ -33,6 +33,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabelPeriodicalCheck = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonWebScrab = new System.Windows.Forms.Button();
             this.buttonAbout = new System.Windows.Forms.Button();
@@ -62,7 +63,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialogCsv = new System.Windows.Forms.SaveFileDialog();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerPeriodicalCheck = new System.Windows.Forms.Timer(this.components);
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -75,7 +76,8 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripProgressBar1});
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabelPeriodicalCheck});
             this.statusStrip1.Location = new System.Drawing.Point(0, 511);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(929, 22);
@@ -92,6 +94,12 @@
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(250, 16);
+            // 
+            // toolStripStatusLabelPeriodicalCheck
+            // 
+            this.toolStripStatusLabelPeriodicalCheck.Name = "toolStripStatusLabelPeriodicalCheck";
+            this.toolStripStatusLabelPeriodicalCheck.Size = new System.Drawing.Size(167, 17);
+            this.toolStripStatusLabelPeriodicalCheck.Text = "Periodical Check enabled: OFF";
             // 
             // panel1
             // 
@@ -358,6 +366,11 @@
             // 
             this.saveFileDialogCsv.DefaultExt = "\".csv\"";
             // 
+            // timerPeriodicalCheck
+            // 
+            this.timerPeriodicalCheck.Interval = 3600000;
+            this.timerPeriodicalCheck.Tick += new System.EventHandler(this.timerPeriodicalCheck_Tick);
+            // 
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.ContextMenuStrip = this.contextMenuStripGrid;
@@ -425,8 +438,9 @@
         private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerPeriodicalCheck;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelPeriodicalCheck;
     }
 }
 

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -33,19 +34,36 @@ namespace sslcheker
             {
                 if (Int32.Parse(maskedTextBox4.Text) <= Int32.Parse(maskedTextBoxEnd.Text))
                 {
-                    for (int i = Int32.Parse(maskedTextBox4.Text); i < Int32.Parse(maskedTextBoxEnd.Text)+1; i++)
+                    for (int i = Int32.Parse(maskedTextBox4.Text); i < Int32.Parse(maskedTextBoxEnd.Text) + 1; i++)
                     {
-                        string IP = maskedTextBox1.Text+"."+maskedTextBox2.Text+"."+maskedTextBox3.Text+"."+i;
-                        richTextBoxLog.AppendText(IP + ":" + (int)numericUpDownPort.Value + " - ");
-                        if (ScanOperations.IsPortOpen(IP, (int)numericUpDownPort.Value, (int)numericUpDownTimeout.Value))
+                        System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping();
+                        System.Net.NetworkInformation.PingReply pingReply;
+
+                        string IP = maskedTextBox1.Text + "." + maskedTextBox2.Text + "." + maskedTextBox3.Text + "." + i;
+                        richTextBoxLog.AppendText(IP + " - ");
+
+                        pingReply = ping.Send(IP, 500);
+
+                        // If there is a successful ping then return true.
+                        if (pingReply != null && pingReply.Status == System.Net.NetworkInformation.IPStatus.Success)
                         {
-                            richTextBoxLog.AppendText("OK\r\n");
-                            dataGridView.Rows.Add("", ScanOperations.resolveIp(IP), (int)numericUpDownPort.Value, "", "", "", "", "");
+                            richTextBoxLog.AppendText("UP ... ");
+                            if (ScanOperations.IsPortOpen(IP, (int)numericUpDownPort.Value, (int)numericUpDownTimeout.Value)) 
+                            {
+                                richTextBoxLog.AppendText(" Port "+ (int)numericUpDownPort.Value + " open\r\n");
+                                dataGridView.Rows.Add("", ScanOperations.resolveIp(IP), (int)numericUpDownPort.Value, "", "", "", "", "");
+                            }
+                            else
+                            {
+                                richTextBoxLog.AppendText("...\r\n");
+                            }
                         }
-                        else
+                        else 
                         {
                             richTextBoxLog.AppendText("...\r\n");
                         }
+
+
                     }
                 }
             }
@@ -144,5 +162,10 @@ namespace sslcheker
             maskedTextBox7.Text = maskedTextBox3.Text;
         }
 
+        private void richTextBoxLog_TextChanged(object sender, EventArgs e)
+        {
+            richTextBoxLog.SelectionStart = richTextBoxLog.Text.Length;
+            richTextBoxLog.ScrollToCaret();
+        }
     }
 }

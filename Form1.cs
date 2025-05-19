@@ -1,6 +1,7 @@
 ﻿using sslcheker;
 using sslcheker.Control;
 using sslcheker.Data;
+using sslcheker.Operations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,6 +59,12 @@ namespace sslcheker
                 }
             }
 
+            if (Operations2.isPeriodicalCheckEnabled())
+            {
+                timerPeriodicalCheck.Interval = 3600000 * PConfig.PERIODICALTIME > 0 ? PConfig.PERIODICALTIME : 1;
+                timerPeriodicalCheck.Enabled = true;
+                toolStripStatusLabelPeriodicalCheck.Text = "Periodical Check enabled: ON";
+            }
         }
 
         private void SaveRows()
@@ -85,40 +92,9 @@ namespace sslcheker
         }
 
 
-        /////////////////////////////////////////////////////
-
-        private void buttonAbout_Click(object sender, EventArgs e)
+        private void checkAllHosts() 
         {
-            FormAbout formAbout = new FormAbout();
-            formAbout.ShowDialog();
-        }
-
-        private void buttonAdd_Click(object sender, EventArgs e)
-        {
-            using (FormAdd formAdd = new FormAdd())
-            {
-                formAdd.ShowDialog();
-                if (formAdd.port != 0)
-                {
-                    AddRow(formAdd.hostname, formAdd.port);
-                }
-            }
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            SaveRows();
-            RegistryOperations.Write();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            RegistryOperations.Read();
-            LoadRows();
-        }
-
-        private void buttonCheck_Click(object sender, EventArgs e)
-        {
+            buttonCheck.Enabled = false;
             if (dataGridView1.Rows.Count > 0)
             {
                 toolStripProgressBar1.Value = 0;
@@ -186,6 +162,46 @@ namespace sslcheker
 
                 toolStripProgressBar1.Value = 100;
             }
+            buttonCheck.Enabled = true;
+        }
+
+
+
+        /////////////////////////////////////////////////////
+
+        private void buttonAbout_Click(object sender, EventArgs e)
+        {
+            FormAbout formAbout = new FormAbout();
+            formAbout.ShowDialog();
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            using (FormAdd formAdd = new FormAdd())
+            {
+                formAdd.ShowDialog();
+                if (formAdd.port != 0)
+                {
+                    AddRow(formAdd.hostname, formAdd.port);
+                }
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveRows();
+            RegistryOperations.Write();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            RegistryOperations.Read();
+            LoadRows();
+        }
+
+        private void buttonCheck_Click(object sender, EventArgs e)
+        {
+            checkAllHosts();
         }
 
         private void deleteToolStripMenuItemDelete_Click(object sender, EventArgs e)
@@ -288,8 +304,21 @@ namespace sslcheker
             using (FormSeetings formSeetings = new FormSeetings())
             {
                 formSeetings.ShowDialog();
-
-
+                if (formSeetings.DialogResult == DialogResult.OK) 
+                {
+                    if (Operations2.isPeriodicalCheckEnabled())
+                    {
+                        timerPeriodicalCheck.Interval = 3600000 * PConfig.PERIODICALTIME > 0 ? PConfig.PERIODICALTIME : 1;
+                        timerPeriodicalCheck.Enabled = true;
+                        toolStripStatusLabelPeriodicalCheck.Text = "Periodical Check enabled: ON";
+                    }
+                    else 
+                    {
+                        timerPeriodicalCheck.Interval = 3600000 * PConfig.PERIODICALTIME > 0 ? PConfig.PERIODICALTIME : 1;
+                        timerPeriodicalCheck.Enabled = false;
+                        toolStripStatusLabelPeriodicalCheck.Text = "Periodical Check enabled: OFF";
+                    }
+                }
             }
         }
 
@@ -341,6 +370,11 @@ namespace sslcheker
                     dataGridView1.Rows[rowSelected].Selected = true;
                 }
             }
+        }
+
+        private void timerPeriodicalCheck_Tick(object sender, EventArgs e)
+        {
+
         }
     }
     
