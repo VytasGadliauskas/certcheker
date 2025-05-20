@@ -1,4 +1,5 @@
 ﻿using sslcheker.Data;
+using sslcheker.Operations;
 using sslcheker.Properties;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,11 @@ namespace sslcheker
             else {
                 buttonTestEmail.Enabled = false;
             }
+            textBoxUser.Text = PConfig.SMTPUSER;
+            textBoxPassword.Text = PConfig.SMTPPASSWORD;
+            checkBoxAutentificate.Checked = PConfig.SMTPAUTENTIFICATE==1?true:false;
+            checkBoxEnableSSL.Checked = PConfig.SMTPSSL==1?true:false;
+
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -56,12 +62,22 @@ namespace sslcheker
             PConfig.SMTPPORT = Int32.Parse(numericUpDownSmtpPort.Value.ToString());
             PConfig.EMAILFROM = textBoxMailFrom.Text;
             PConfig.EMAILTO = textBoxMailTo.Text;
+            PConfig.SMTPUSER = textBoxUser.Text;
+            PConfig.SMTPPASSWORD = textBoxPassword.Text;
+            PConfig.SMTPAUTENTIFICATE = checkBoxAutentificate.Checked ? 1 : 0;
+            PConfig.SMTPSSL = checkBoxEnableSSL.Checked ? 1 : 0;
             Close();
         }
 
-        private void checkBoxEnableMail_MouseClick(object sender, MouseEventArgs e)
+
+        private void buttonTestEmail_Click(object sender, EventArgs e)
         {
-            if (checkBoxPeriodicCheck.Checked)
+            Operations2.sendEmai("Test from SSL cheker to "+PConfig.EMAILTO , "Test from SSL cheker");
+        }
+
+        private void checkBoxEnableMail_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (checkBoxEnableMail.Checked)
             {
                 buttonTestEmail.Enabled = true;
             }

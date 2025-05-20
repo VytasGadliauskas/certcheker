@@ -30,7 +30,7 @@ namespace sslcheker
             try
             {
                 X509Certificate2 cert = null;
-                var client = new TcpClient(hostname, 443);
+                var client = new TcpClient(hostname, port);
                 var certValidation = new RemoteCertificateValidationCallback(delegate (object snd, X509Certificate certificate,
                             X509Chain chainLocal, SslPolicyErrors sslPolicyErrors)
                 {
@@ -43,6 +43,7 @@ namespace sslcheker
                     sslStream.AuthenticateAsClient(hostname);
                     var serverCertificate = sslStream.RemoteCertificate;
                     cert = new X509Certificate2(serverCertificate);
+                    richTextBox1.AppendText("HOSTNAME : "+hostname+":"+port+"\r\n\n");
 
                     richTextBox1.AppendText("Issued To:\r\n");
                     richTextBox1.AppendText("      CN : " + cert.GetNameInfo(X509NameType.SimpleName, false)+"\r");
@@ -52,7 +53,6 @@ namespace sslcheker
 
                     richTextBox1.AppendText("Issued By: \r\n");
                     richTextBox1.AppendText("      CN : " + cert.Issuer + "\r\n");
-
 
                     richTextBox1.AppendText("Valid period:\r\n");
                     richTextBox1.AppendText("      Issued on : "+ cert.NotBefore+"\r");

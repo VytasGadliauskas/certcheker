@@ -23,6 +23,10 @@ namespace sslcheker.Control
                 key.SetValue("EMAILENABLE", PConfig.EMAILENABLE);
                 key.SetValue("SMTPHOST", PConfig.SMTPHOST);
                 key.SetValue("SMTPPORT", PConfig.SMTPPORT);
+                key.SetValue("SMTPUSER", PConfig.SMTPUSER);
+                key.SetValue("SMTPPASSWORD", PConfig.SMTPPASSWORD);
+                key.SetValue("SMTPAUTENTIFICATE", PConfig.SMTPAUTENTIFICATE);
+                key.SetValue("SMTPSSL", PConfig.SMTPSSL);
                 key.SetValue("EMAILFROM", PConfig.EMAILFROM);
                 key.SetValue("EMAILTO", PConfig.EMAILTO);
                 key.SetValue("ALERTONCANNOTCONNECT", PConfig.ALERTONCANNOTCONNECT);
@@ -99,8 +103,52 @@ namespace sslcheker.Control
                 }
                 else
                 {
-                    key.SetValue("SMTPPORT", 1);
-                    PConfig.SMTPPORT = 1;
+                    key.SetValue("SMTPPORT", 25);
+                    PConfig.SMTPPORT = 25;
+                }
+
+
+                if (key.GetValueNames().Contains("SMTPUSER"))
+                {
+                    PConfig.SMTPUSER = key.GetValue("SMTPUSER").ToString();
+                }
+                else
+                {
+                    key.SetValue("SMTPUSER", "");
+                    PConfig.SMTPUSER = "";
+                }
+
+
+                if (key.GetValueNames().Contains("SMTPPASSWORD"))
+                {
+                    PConfig.SMTPPASSWORD = key.GetValue("SMTPPASSWORD").ToString();
+                }
+                else
+                {
+                    key.SetValue("SMTPPASSWORD", "");
+                    PConfig.SMTPPASSWORD = "";
+                }
+
+
+                if (key.GetValueNames().Contains("SMTPAUTENTIFICATE"))
+                {
+                    PConfig.SMTPAUTENTIFICATE = Int32.Parse(key.GetValue("SMTPAUTENTIFICATE").ToString());
+                }
+                else
+                {
+                    key.SetValue("SMTPAUTENTIFICATE", 0);
+                    PConfig.SMTPAUTENTIFICATE = 0;
+                }
+
+
+                if (key.GetValueNames().Contains("SMTPSSL"))
+                {
+                    PConfig.SMTPSSL = Int32.Parse(key.GetValue("SMTPSSL").ToString());
+                }
+                else
+                {
+                    key.SetValue("SMTPSSL", 0);
+                    PConfig.SMTPSSL = 0;
                 }
 
                 if (key.GetValueNames().Contains("EMAILFROM"))
@@ -129,10 +177,9 @@ namespace sslcheker.Control
                 }
                 else
                 {
-                    key.SetValue("ALERTONCANNOTCONNECT", 1);
-                    PConfig.ALERTONCANNOTCONNECT = 1;
+                    key.SetValue("ALERTONCANNOTCONNECT", 0);
+                    PConfig.ALERTONCANNOTCONNECT = 0;
                 }
-
 
             }
         }

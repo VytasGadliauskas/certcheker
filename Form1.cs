@@ -30,8 +30,7 @@ namespace sslcheker
             InitializeComponent();
         }
 
-
-        ////////////       Operacijos         ///////////////
+        ///////////////       Operacijos         ///////////////
 
         private void AddRow(string hostname, int port)
         {
@@ -91,10 +90,8 @@ namespace sslcheker
 
         }
 
-
         private void checkAllHosts() 
         {
-            buttonCheck.Enabled = false;
             if (dataGridView1.Rows.Count > 0)
             {
                 toolStripProgressBar1.Value = 0;
@@ -155,17 +152,11 @@ namespace sslcheker
                         row.Cells[0].Value = ex.Message;
                         row.DefaultCellStyle.BackColor = Color.LightGray;
                     }
-
                     row.Cells[7].Value = localDate.ToString();
-
                 }
-
                 toolStripProgressBar1.Value = 100;
             }
-            buttonCheck.Enabled = true;
         }
-
-
 
         /////////////////////////////////////////////////////
 
@@ -290,7 +281,7 @@ namespace sslcheker
             FormSSLDetails formSSLDetails = new FormSSLDetails();
             DataGridViewRow row = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex];
             formSSLDetails.hostname = row.Cells[1].Value.ToString();
-            // formSSLDetails.port = (int)row.Cells[2].Value;
+            formSSLDetails.port = Int32.Parse(row.Cells[2].Value.ToString());
             formSSLDetails.ShowDialog();
         }
 
@@ -374,7 +365,19 @@ namespace sslcheker
 
         private void timerPeriodicalCheck_Tick(object sender, EventArgs e)
         {
+            
+            
 
+
+        }
+
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            FormSSLDetails formSSLDetails = new FormSSLDetails();
+            DataGridViewRow row = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex];
+            formSSLDetails.hostname = row.Cells[1].Value.ToString();
+            formSSLDetails.port = Int32.Parse(row.Cells[2].Value.ToString());
+            formSSLDetails.ShowDialog();
         }
     }
     

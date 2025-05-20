@@ -25,20 +25,25 @@ namespace sslcheker.Operations
 
         public static void sendEmai(string message, string subject)
         {
+            NetworkCredential Credentials2 = null;
+            if (PConfig.SMTPAUTENTIFICATE == 1 ? true : false)
+                Credentials2 = new NetworkCredential(PConfig.SMTPUSER, PConfig.SMTPPASSWORD);
+
             try {
                  SmtpClient smtpClient = new SmtpClient(PConfig.SMTPHOST)
                  {
                     Port = PConfig.SMTPPORT,
-                    Credentials = new NetworkCredential("username", "password"),
-                    EnableSsl = true,
+                    Credentials = Credentials2,
+                    EnableSsl = PConfig.SMTPSSL == 1?true:false,
                  };
+
                  smtpClient.Send(PConfig.EMAILTO, PConfig.EMAILFROM, subject, message);
 
-            } catch { 
-            
+            } catch (Exception ex)
+            {
+                MessageBox.Show("ERROR " + ex.Message);
             }
         }
-
 
     }
 }
